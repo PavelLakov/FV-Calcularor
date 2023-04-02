@@ -35,7 +35,7 @@ where:
 The program will then display a chart of the future value over time, as well as the final future value in a label below the chart.
 
 License
-This program is licensed under the MIT License. See the LICENSE file for details.
+This program is licensed under the free.
 
 Acknowledgments
 This program was created by Pavel Lakov
