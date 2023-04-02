@@ -1,0 +1,60 @@
+import tkinter as tk
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+from matplotlib.figure import Figure
+
+def compound_interest(principal, rate, time):
+    amount = principal * (1 + rate / 100) ** time
+    return amount
+
+def calculate_fv():
+    principal = float(principal_entry.get())
+    rate = float(rate_entry.get())
+    time = int(time_entry.get())
+
+    years = list(range(time+1))
+    future_values = [compound_interest(principal, rate, t) for t in years]
+
+    chart.clear()
+    chart.plot(years, future_values)
+    chart.set_xlabel('Time (Years)')
+    chart.set_ylabel('Future Value')
+    chart.set_title('Future Value over Time')
+    canvas.draw()
+
+    fv_label.config(text=f'Future Value: ${future_values[-1]:,.2f}')
+
+# Create the main window
+root = tk.Tk()
+root.title('Future Value Calculator')
+
+# Create the input fields and labels
+principal_label = tk.Label(root, text='Principal:')
+principal_entry = tk.Entry(root)
+rate_label = tk.Label(root, text='Interest Rate (%):')
+rate_entry = tk.Entry(root)
+time_label = tk.Label(root, text='Time (Years):')
+time_entry = tk.Entry(root)
+
+# Create the calculate button
+calculate_button = tk.Button(root, text='Calculate', command=calculate_fv)
+
+# Create the chart and canvas
+figure = Figure(figsize=(5, 4), dpi=100)
+chart = figure.add_subplot(111)
+canvas = FigureCanvasTkAgg(figure, master=root)
+canvas.get_tk_widget().pack(side=tk.TOP, fill=tk.BOTH, expand=1)
+
+# Create the Future Value label
+fv_label = tk.Label(root, text='Future Value:')
+
+# Pack the widgets
+principal_label.pack()
+principal_entry.pack()
+rate_label.pack()
+rate_entry.pack()
+time_label.pack()
+time_entry.pack()
+calculate_button.pack()
+fv_label.pack()
+
+root.mainloop()
